@@ -17,4 +17,5 @@
     <string name="text_Register">"Register"</string>
     <string name="Welcome_msg">"Welcome to Lost Object"</string>
     <string name="text_logout">"Logout"</string>
+    <string name="failed_getUserInformations">"Impossible to get your data from the database"</string>
 </resources>
