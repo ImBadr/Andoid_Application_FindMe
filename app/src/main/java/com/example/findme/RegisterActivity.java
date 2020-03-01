@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -44,9 +45,9 @@ public class RegisterActivity extends AppCompatActivity {
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text_username = username.getText().toString();
-                String text_email = email.getText().toString();
-                String text_password = password.getText().toString();
+                String text_username = Objects.requireNonNull(username.getText()).toString();
+                String text_email = Objects.requireNonNull(email.getText()).toString();
+                String text_password = Objects.requireNonNull(password.getText()).toString();
                 /* Vérification de la saisie des données avant de pouvoir procédé à l'Enregistrement
                  */
                 if (TextUtils.isEmpty(text_username) | TextUtils.isEmpty(text_email) | TextUtils.isEmpty(text_password)){
@@ -69,6 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
                             FirebaseUser firebaseUser = auth.getCurrentUser();
                             /* Génère un UserID automatiquement
                              */
+
                             final String userId = firebaseUser.getUid();
 
                             /* Ici on crée une table Users dans lequel on range :

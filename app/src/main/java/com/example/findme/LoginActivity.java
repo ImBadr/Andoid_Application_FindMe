@@ -16,6 +16,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import java.util.Objects;
+
 public class LoginActivity extends AppCompatActivity {
 
     MaterialEditText email, password;
@@ -37,8 +39,8 @@ public class LoginActivity extends AppCompatActivity {
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text_email = email.getText().toString();
-                String text_password = password.getText().toString();
+                String text_email = Objects.requireNonNull(email.getText()).toString();
+                String text_password = Objects.requireNonNull(password.getText()).toString();
 
                 if (TextUtils.isEmpty(text_email) | TextUtils.isEmpty(text_password)){
                     Toast.makeText(LoginActivity.this, "Veillez remplir tous les champs s'il vous plaît", Toast.LENGTH_SHORT).show();

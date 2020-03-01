@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,7 +31,7 @@
             android:layout_marginTop="25dp"
             android:background="@color/colorAccent"
             android:text="@string/text_Login"
-            android:textColor="@color/cardview_dark_background"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +47,7 @@
             android:background="@color/colorAccent"
             android:layout_marginTop="10dp"
             android:text="@string/text_Register"
-            android:textColor="@color/cardview_dark_background"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
