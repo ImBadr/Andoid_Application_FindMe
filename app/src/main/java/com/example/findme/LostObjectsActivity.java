@@ -47,7 +47,7 @@ public class LostObjectsActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (DataSnapshot childNext : dataSnapshot.getChildren()) {
                                 Log.i(childNext.getKey(), Objects.requireNonNull(childNext.getValue(String.class)));
-                                if (Objects.equals(childNext.getKey(), "image") && Objects.equals(child.getKey(), "0")){
+                                if (Objects.equals(childNext.getKey(), "image")){
                                     Log.i("Image" , Objects.requireNonNull(childNext.getValue(String.class)));
                                     byte[] image = Base64.decode(Objects.requireNonNull(childNext.getValue(String.class)).replace("data:image/png;base64,", ""), Base64.DEFAULT);
                                     imageView2.setImageBitmap(BitmapFactory.decodeByteArray( image, 0, image.length));
@@ -56,9 +56,10 @@ public class LostObjectsActivity extends AppCompatActivity {
                                     byte[] image = Base64.decode(Objects.requireNonNull(childNext.getValue(String.class)).replace("data:image/png;base64,", ""), Base64.DEFAULT);
                                     imageView3.setImageBitmap(BitmapFactory.decodeByteArray( image, 0, image.length));
                                 }
-                                if ( childNext.getKey().equals("image") && Objects.equals(child.getKey(), "2")){
+                                if ( childNext.getKey().equals("image") ){
                                     byte[] image = Base64.decode(Objects.requireNonNull(childNext.getValue(String.class)).replace("data:image/png;base64,", ""), Base64.DEFAULT);
                                     imageView4.setImageBitmap(BitmapFactory.decodeByteArray( image, 0, image.length));
+                                    //Picasso.get().load(Objects.requireNonNull(childNext.getValue(String.class)).replace("data:image/png;base64, ", "")).into(imageView4);
                                 }
                             }
                         }
