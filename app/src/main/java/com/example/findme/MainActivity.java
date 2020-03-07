@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
          * On le redirige directement sur la page ProfilActivity
          */
         if (firebaseUser != null){
-            startActivity(new Intent(MainActivity.this, ProfilActivity.class));
+            startActivity(new Intent(MainActivity.this, LostObjectsActivity.class));
         }
 
         this.LoginButton = findViewById(R.id.LoginButton);
