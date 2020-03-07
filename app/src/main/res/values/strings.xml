@@ -18,4 +18,9 @@
     <string name="Welcome_msg">"Welcome to Lost Object"</string>
     <string name="text_logout">"Logout"</string>
     <string name="failed_getUserInformations">"Impossible to get your data from the database"</string>
+    <string name="losted_objects">losted_objects</string>
+    <string name="salle">salle</string>
+    <string name="heure">heure</string>
+    <string name="date">date</string>
+    <string name="description">description</string>
 </resources>

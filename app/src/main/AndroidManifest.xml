@@ -13,8 +13,12 @@
         <activity android:name=".LostObjectsActivity" />
         <activity android:name=".NewObjectActivity" />
         <activity android:name=".ProfilActivity" />
-        <activity android:name=".RegisterActivity" android:parentActivityName=".MainActivity" />
-        <activity android:name=".LoginActivity" android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".RegisterActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
