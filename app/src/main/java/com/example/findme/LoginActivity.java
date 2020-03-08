@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            startActivity(new Intent(LoginActivity.this, LostObjectsActivity.class)
+                            startActivity(new Intent(LoginActivity.this, NewObjectActivity.class)
                                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                             finish();
                         } else{

@@ -23,4 +23,7 @@
     <string name="heure">heure</string>
     <string name="date">date</string>
     <string name="description">description</string>
+    <string name="Share">Share</string>
+    <string name="share_a_lost_object">Share a Lost Object</string>
+    <string name="Picture">Picture</string>
 </resources>
