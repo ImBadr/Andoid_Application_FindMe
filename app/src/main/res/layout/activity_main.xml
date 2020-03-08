@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Welcome_msg"
+            android:text="@string/Welcome"
             android:layout_marginTop="1dp"
             android:textSize="25sp"
             android:textStyle="bold"/>
@@ -30,7 +30,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="25dp"
             android:background="@color/colorAccent"
-            android:text="@string/text_Login"
+            android:text="@string/Login"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -46,7 +46,7 @@
             android:layout_height="40dp"
             android:background="@color/colorAccent"
             android:layout_marginTop="10dp"
-            android:text="@string/text_Register"
+            android:text="@string/Register"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"

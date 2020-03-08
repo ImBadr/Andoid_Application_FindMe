@@ -43,9 +43,9 @@ public class LoginActivity extends AppCompatActivity {
                 String text_password = Objects.requireNonNull(password.getText()).toString();
 
                 if (TextUtils.isEmpty(text_email) | TextUtils.isEmpty(text_password)){
-                    Toast.makeText(LoginActivity.this, "Veillez remplir tous les champs s'il vous plaît", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, getString(R.string.Please_fill_in_all_fields), Toast.LENGTH_SHORT).show();
                 } else if (text_password.length() < 8){
-                    Toast.makeText(LoginActivity.this, "Le mot de passe doit contenir 8 caractères minimum", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, getString(R.string.Password_8_characters), Toast.LENGTH_SHORT).show();
                 } else {
                     login( text_email, text_password);
                 }
@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                             finish();
                         } else{
-                            Toast.makeText(LoginActivity.this, "L'identifiant ou le mot de passe est incorrect", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, getString(R.string.incorrect_user_password), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

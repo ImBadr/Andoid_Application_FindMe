@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,6 +21,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
+import static com.example.findme.R.*;
+import static com.example.findme.R.string.*;
+
 
 public class LostObjectsActivity extends AppCompatActivity {
 
@@ -29,49 +31,48 @@ public class LostObjectsActivity extends AppCompatActivity {
     LinearLayout linearLayout;
     LayoutInflater layoutInflater;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lost_objects);
+        setContentView(layout.activity_lost_objects);
 
-        linearLayout = findViewById(R.id.LinearViewImages);
+        linearLayout = findViewById(id.LinearViewImages);
         layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
-        reference = FirebaseDatabase.getInstance().getReference("Objects/");
+        reference = FirebaseDatabase.getInstance().getReference(getString(Path_Objects));
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (final DataSnapshot child : dataSnapshot.getChildren()) {
-                    final View view = layoutInflater.inflate(R.layout.my_scroll_layout, linearLayout, false);
+                    final View view = layoutInflater.inflate(layout.my_scroll_layout, linearLayout, false);
 
                     reference.child("/" + child.getKey()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (DataSnapshot childNext : dataSnapshot.getChildren()) {
 
-                                TextView salle = view.findViewById(R.id.Salle);
-                                TextView heure = view.findViewById(R.id.Heure);
-                                TextView date = view.findViewById(R.id.Date);
-                                ImageView image = view.findViewById(R.id.image);
-                                TextView description = view.findViewById(R.id.Description);
+                                TextView room = view.findViewById(id.Room);
+                                TextView hour = view.findViewById(id.Hour);
+                                TextView date = view.findViewById(id.Date);
+                                ImageView image = view.findViewById(id.image);
+                                TextView description = view.findViewById(id.Description);
 
-                                if (Objects.equals(childNext.getKey(), "salle")){
-                                    salle.setText(childNext.getValue(String.class));
+                                if (Objects.equals(childNext.getKey(), getString(string.room))){
+                                    room.setText(childNext.getValue(String.class));
                                 }
-                                if (Objects.equals(childNext.getKey(), "heure")){
-                                    heure.setText(childNext.getValue(String.class));
+                                if (Objects.equals(childNext.getKey(), getString(string.hour))){
+                                    hour.setText(childNext.getValue(String.class));
                                 }
-                                if (Objects.equals(childNext.getKey(), "date")){
+                                if (Objects.equals(childNext.getKey(), getString(string.date))){
                                     date.setText(childNext.getValue(String.class));
                                 }
-                                if (Objects.equals(childNext.getKey(), "description")){
+                                if (Objects.equals(childNext.getKey(), getString(string.description))){
                                     description.setText(childNext.getValue(String.class));
                                 }
-                                if (Objects.equals(childNext.getKey(), "image")){
-                                    byte[] image64 = Base64.decode(Objects.requireNonNull(childNext.getValue(String.class)).replace("data:image/png;base64,", ""), Base64.DEFAULT);
+                                if (Objects.equals(childNext.getKey(), getString(string.image))){
+                                    byte[] image64 = Base64.decode(Objects.requireNonNull(childNext.getValue(String.class)).replace(getString(string.replace_base_64_string), ""), Base64.DEFAULT);
                                     image.setImageBitmap(BitmapFactory.decodeByteArray( image64, 0, image64.length));
                                 }
                             }
@@ -79,7 +80,7 @@ public class LostObjectsActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Toast.makeText(LostObjectsActivity.this, "Message d'erreur", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LostObjectsActivity.this, getString(string.error), Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -89,7 +90,7 @@ public class LostObjectsActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(LostObjectsActivity.this, "Message d'erreur", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LostObjectsActivity.this, getString(string.error), Toast.LENGTH_SHORT).show();
             }
         });
     }

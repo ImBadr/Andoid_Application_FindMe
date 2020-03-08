@@ -22,16 +22,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/share_a_lost_object"
+            android:text="@string/share_a_lost_item"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/Salle"
+            android:id="@+id/Room"
             android:layout_width="120pt"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:hint="@string/salle" />
+            android:hint="@string/room" />
 
         <RelativeLayout
             android:layout_width="282dp"
@@ -39,14 +39,14 @@
             android:layout_marginTop="10dp">
 
             <TextView
-                android:id="@+id/Heure"
+                android:id="@+id/Hour"
                 android:layout_width="176dp"
                 android:layout_height="48dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="1dp"
-                android:hint="@string/heure"
+                android:hint="@string/hour"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
@@ -54,7 +54,7 @@
                 android:id="@+id/ButtonHeure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/heure"
+                android:text="@string/hour"
                 android:drawableStart="@drawable/ic_alarm_black_24dp"
                 tools:ignore="RelativeOverlap" />
 

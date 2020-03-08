@@ -48,12 +48,11 @@ public class RegisterActivity extends AppCompatActivity {
                 String text_username = Objects.requireNonNull(username.getText()).toString();
                 String text_email = Objects.requireNonNull(email.getText()).toString();
                 String text_password = Objects.requireNonNull(password.getText()).toString();
-                /* Vérification de la saisie des données avant de pouvoir procédé à l'Enregistrement
-                 */
+
                 if (TextUtils.isEmpty(text_username) | TextUtils.isEmpty(text_email) | TextUtils.isEmpty(text_password)){
-                    Toast.makeText(RegisterActivity.this, "Veillez remplir tous les champs s'il vous plaît", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, getString(R.string.Please_fill_in_all_fields), Toast.LENGTH_SHORT).show();
                 } else if (text_password.length() < 8){
-                    Toast.makeText(RegisterActivity.this, getString(R.string.invalid_password), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, getString(R.string.Password_8_characters), Toast.LENGTH_SHORT).show();
                 } else {
                     register(text_username, text_email, text_password);
                 }
@@ -61,52 +60,38 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void register(final String username, final String email, String password){
+    private void register(final String username, final String email, final String password){
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             FirebaseUser firebaseUser = auth.getCurrentUser();
-                            /* Génère un UserID automatiquement
-                             */
 
-                            final String userId = firebaseUser.getUid();
+                            final String userId = Objects.requireNonNull(firebaseUser).getUid();
 
-                            /* Ici on crée une table Users dans lequel on range :
-                             * ->userId
-                             * ->username
-                             * ->imageURL
-                             */
-                            reference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+                            reference = FirebaseDatabase.getInstance().getReference(getString(R.string.Path_User)).child(userId);
 
-                            /* on crée un HashMap où on range nos données
-                             */
                             HashMap<String, String> hashMap = new HashMap<>();
-                            hashMap.put("id", userId);
-                            hashMap.put("username", username);
-                            hashMap.put("imageURL", "default");
+                            hashMap.put(getString(R.string.email), email);
+                            hashMap.put(getString(R.string.password), password);
+                            hashMap.put(getString(R.string.username), username);
 
-                            /* on Enregistre la HashMap et on lance l'activité ProfilActivity
-                             */
                             reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
-                                        startActivity(new Intent(RegisterActivity.this, ProfilActivity.class)
+                                        startActivity(new Intent(RegisterActivity.this, ProfileActivity.class)
                                                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
-                                                .putExtra("username", username)
                                         );
                                         finish();
                                     }
                                 }
                             });
                         }
-                        /* Si l'utilisateur existe déjà
-                         * on affiche un Toast
-                         */
+
                         else {
-                            Toast.makeText(RegisterActivity.this, "You can't be registred", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, getString(R.string.You_cant_be_registered), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -3,14 +3,14 @@ package com.example.findme;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
@@ -22,19 +22,12 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
@@ -43,39 +36,44 @@ public class NewObjectActivity extends AppCompatActivity {
 
     DatabaseReference reference;
 
-    Button ButtonHeure, dateButton, takePictureButton, shareButton;
-    MaterialEditText salle;
-    TextView date, heure, description;
+    Button ButtonHour, dateButton, takePictureButton, shareButton;
+    MaterialEditText room;
+    TextView date, hour, description;
     ImageView image;
     Bitmap bitmap;
 
     TimePickerDialog timePickerDialog;
     DatePickerDialog datePickerDialog;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_object);
 
-        ButtonHeure = findViewById(R.id.ButtonHeure);
+        ButtonHour = findViewById(R.id.ButtonHeure);
         dateButton = findViewById(R.id.ButtonDate);
         takePictureButton = findViewById(R.id.ButtonTakePicture);
         shareButton = findViewById(R.id.ButtonShare);
-        salle = findViewById(R.id.Salle);
+        room = findViewById(R.id.Room);
         date = findViewById(R.id.Date);
-        heure = findViewById(R.id.Heure);
+        hour = findViewById(R.id.Hour);
         image = findViewById(R.id.ImageTaked);
         description = findViewById(R.id.Description);
-
-        ButtonHeure.setOnClickListener(new View.OnClickListener() {
+        
+        date.setText(Calendar.getInstance().get(Calendar.YEAR) + "/" + Calendar.getInstance().get(Calendar.MONTH) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        
+        
+        
+        ButtonHour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 timePickerDialog = new TimePickerDialog(NewObjectActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        heure.setText(hourOfDay + ":" + minute);
+                        hour.setText(hourOfDay + ":" + minute);
                     }
-                }, 0, 0, false);
+                }, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE), true);
                 timePickerDialog.show();
             }
         });
@@ -88,7 +86,7 @@ public class NewObjectActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         date.setText(dayOfMonth + "/" + month + "/" + year);
                     }
-                }, 0, 0, 0);
+                }, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
             }
         });
@@ -103,10 +101,18 @@ public class NewObjectActivity extends AppCompatActivity {
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**
-                 * Faire des vérification
-                 * appeler une méthode pour envoyer les données
-                 */
+                String text_room = Objects.requireNonNull(room.getText()).toString();
+                String text_hour = Objects.requireNonNull(hour.getText()).toString();
+                String text_date = Objects.requireNonNull(date.getText()).toString();
+                String text_description = Objects.requireNonNull(description.getText()).toString();
+
+                if (TextUtils.isEmpty(text_room) | TextUtils.isEmpty(text_hour) | TextUtils.isEmpty(text_date) | TextUtils.isEmpty(text_description) | bitmap == null){
+                    Toast.makeText(NewObjectActivity.this, getString(R.string.Please_fill_in_all_fields), Toast.LENGTH_SHORT).show();
+                } else if (description.length() > 200){
+                    Toast.makeText(NewObjectActivity.this, getString(R.string.description_too_long), Toast.LENGTH_SHORT).show();
+                } else {
+                    save(text_room, text_hour, text_date, text_description, bitmap);
+                }
             }
         });
     }
@@ -124,21 +130,16 @@ public class NewObjectActivity extends AppCompatActivity {
         image.setImageBitmap((Bitmap) Objects.requireNonNull(data.getExtras()).get("data"));
     }
 
-    private void register(final String username, final String email, String password){
+    private void save(final String room, final String hour, String date, String description, Bitmap bitmap){
 
         HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("date", date.toString());
-        hashMap.put("description", description.toString());
-        hashMap.put("heure", heure.toString());
-        hashMap.put("image", bitmap.toString());
-        hashMap.put("salle",salle.toString());
+        hashMap.put(getString(R.string.date), date);
+        hashMap.put(getString(R.string.description), description);
+        hashMap.put(getString(R.string.hour), hour);
+        hashMap.put(getString(R.string.image), getImageInBase64(bitmap));
+        hashMap.put(getString(R.string.room),room);
 
-
-        byte[] array = new byte[10];
-        new Random().nextBytes(array);
-        String generatedString = new String(array, StandardCharsets.UTF_8);
-
-        reference = FirebaseDatabase.getInstance().getReference("Objects").child(generatedString);
+        reference = FirebaseDatabase.getInstance().getReference(getString(R.string.Path_Objects)).child(getRandomAlphaNumeric(new Random().nextInt(20 + 1) + 5));
 
         reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -148,9 +149,28 @@ public class NewObjectActivity extends AppCompatActivity {
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
                     );
                     finish();
+                } else {
+                    Toast.makeText(NewObjectActivity.this, getString(R.string.data_sending_error), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    public String getRandomAlphaNumeric(int len) {
+        char[] ch = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+                'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+                'w', 'x', 'y', 'z' };
+
+        char[] c=new char[len];
+        Random random=new Random();
+        for (int i = 0; i < len; i++) {
+            c[i]=ch[random.nextInt(ch.length)];
+        }
+
+        return new String(c);
     }
 
 }
