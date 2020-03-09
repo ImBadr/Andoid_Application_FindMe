@@ -20,6 +20,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         logoutButton = findViewById(R.id.logoutButton);
 
+        /* Déconnecté l'utilisateur actuellement authentifié
+         */
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -62,9 +62,11 @@ public class NewObjectActivity extends AppCompatActivity {
         description = findViewById(R.id.Description);
         
         date.setText(Calendar.getInstance().get(Calendar.YEAR) + "/" + Calendar.getInstance().get(Calendar.MONTH) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-        
-        
-        
+
+
+        /* Service de selection d'heure
+         * au click une popup de selection d'heure
+         */
         ButtonHour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +80,9 @@ public class NewObjectActivity extends AppCompatActivity {
             }
         });
 
+        /* Service de selection de date
+         * au click une popup de selection de date
+         */
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +96,9 @@ public class NewObjectActivity extends AppCompatActivity {
             }
         });
 
+        /* Service de prise de photo
+         * au click on peut prendre un photo avec l'appareil photo
+         */
         takePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,6 +106,8 @@ public class NewObjectActivity extends AppCompatActivity {
             }
         });
 
+        /* J'effectue des vérification si toutes les données sont entrée avant de les enregistrer dans la base de données Firebase
+         */
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,12 +127,23 @@ public class NewObjectActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Conversion d'une Image de type Bitmap en Base64
+     * @param image
+     * @return String -> Image en Base64
+     */
     private String getImageInBase64(Bitmap image){
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 70, outputStream);
         return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
     }
 
+    /**
+     * J'affiche l'image qui vient d'être prise en photo actuellement
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -130,6 +151,14 @@ public class NewObjectActivity extends AppCompatActivity {
         image.setImageBitmap((Bitmap) Objects.requireNonNull(data.getExtras()).get("data"));
     }
 
+    /**
+     * J'enregistre les données dans la base de données Firebase
+     * @param room
+     * @param hour
+     * @param date
+     * @param description
+     * @param bitmap
+     */
     private void save(final String room, final String hour, String date, String description, Bitmap bitmap){
 
         HashMap<String, String> hashMap = new HashMap<>();
@@ -156,6 +185,11 @@ public class NewObjectActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Générer un numér d'identification unique pour l'objet dans la base de dnnnées firebase
+     * @param len
+     * @return
+     */
     public String getRandomAlphaNumeric(int len) {
         char[] ch = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
                 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',

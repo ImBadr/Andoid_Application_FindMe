@@ -17,8 +17,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /* Je regarde s'il y a un utilisateur actuellement authentifié dans la BD
+         */
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        /* s'il y a un utilisateur actuellement authentifié
+         * il n'a pas besoin de s'authentifier
+         */
         if (firebaseUser != null){
             startActivity(new Intent(MainActivity.this, NewObjectActivity.class));
         }
@@ -26,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         Button loginButton = findViewById(R.id.LoginButton);
         Button registerButton = findViewById(R.id.RegisterButton);
 
+        /* Lancement de l'activité Login
+         */
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /* Lancement de l'activité Register
+         */
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

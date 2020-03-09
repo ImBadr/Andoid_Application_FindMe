@@ -40,8 +40,12 @@ public class RegisterActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         RegisterButton = findViewById(R.id.RegisterButton);
 
+        /* Appel au service d'authentification de firebase
+         */
         auth = FirebaseAuth.getInstance();
 
+        /* Au click je fais les verification avant d'enregistrer les données
+         */
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +64,12 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * J'enregistre les données dans la base de données firebase si elles sont correcte
+     * @param username
+     * @param email
+     * @param password
+     */
     private void register(final String username, final String email, final String password){
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

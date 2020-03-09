@@ -34,8 +34,12 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         LoginButton = findViewById(R.id.LoginButton);
 
+        /*  j'utilise directement le service d'authentification de Firebase
+         */
         auth = FirebaseAuth.getInstance();
 
+        /* Je fais des test pour voir si les données saisies sont correctes avant de Login l'utilisateur
+         */
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +57,13 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Je Login la personne qui a entrée sont Email et son Password
+     * Si le service d'authentification de Firebase me renvoie une erreur
+     * j'affiche que les données sont incorrectes
+     * @param email
+     * @param password
+     */
     public void login(final String email, final String password){
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

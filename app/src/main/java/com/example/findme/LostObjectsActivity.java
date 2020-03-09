@@ -37,10 +37,19 @@ public class LostObjectsActivity extends AppCompatActivity {
         setContentView(layout.activity_lost_objects);
 
         linearLayout = findViewById(id.LinearViewImages);
+
+        /* LayoutInflater permet de recopier un Layout existant en changent simplement les données des items
+         */
         layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
+        /* J'écoute actuellement dans la base de données Firebase le chemin que point reference
+         */
         reference = FirebaseDatabase.getInstance().getReference(getString(Path_Objects));
 
+        /* Je parcour la Base de données FireBase
+         * à chaque fois qu'il y a un objet je recopie un layout Vierge
+         * Je modifie ses données et je l'ajoute au layout current
+         */
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
