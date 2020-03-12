@@ -12,12 +12,7 @@
         android:orientation="vertical"
         android:background="@color/colorClear">
 
-        <include
-            android:layout_height="0dp"
-            android:layout_width="match_parent"
-            android:layout_weight="7"
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar_layout" />
+
 
         <LinearLayout
             android:layout_height="0dp"
@@ -51,12 +46,7 @@
 
             </ScrollView>
         </LinearLayout>
-        <include
-            android:layout_height="0dp"
-            android:layout_width="match_parent"
-            android:layout_weight="10"
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar_layout" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

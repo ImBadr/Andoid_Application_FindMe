@@ -3,13 +3,10 @@ package com.example.findme;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +16,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.Objects;
 
 import static com.example.findme.R.string.Path_Objects;
@@ -36,6 +32,8 @@ public class StudentsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_students);
+
+        //setSupportActionBar(toolbar);
 
         linearLayout = findViewById(R.id.LinearViewImages);
 
@@ -98,8 +96,6 @@ public class StudentsActivity extends AppCompatActivity {
                 Toast.makeText(StudentsActivity.this, getString(R.string.error), Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
 
         //logoutButton = findViewById(R.id.logoutButton);

@@ -30,4 +30,5 @@
     <string name="app_name">FindMe</string>
     <string name="item_Name">item name</string>
     <string name="object_losted_in">Object losted in :</string>
+    <string name="logout">logout</string>
 </resources>
