@@ -10,6 +10,8 @@ import android.widget.Button;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -24,8 +26,13 @@ public class MainActivity extends AppCompatActivity {
         /* s'il y a un utilisateur actuellement authentifié
          * il n'a pas besoin de s'authentifier
          */
-        if (firebaseUser != null){
-            startActivity(new Intent(MainActivity.this, NewObjectActivity.class));
+
+        if (firebaseUser != null && Objects.equals(firebaseUser.getEmail(), "parisdescartes@parisdescartes.fr")){
+            startActivity(new Intent(MainActivity.this, LostObjectsActivity.class));
+        } else if (firebaseUser != null){
+            startActivity(new Intent(MainActivity.this, StudentsActivity.class));
+        } else {
+
         }
 
         Button loginButton = findViewById(R.id.LoginButton);

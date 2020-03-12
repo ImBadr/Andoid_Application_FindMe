@@ -5,7 +5,7 @@
     <string name="Path_Objects">Objects</string>
     <string name="hour">hour</string>
     <string name="date">date</string>
-    <string name="description">description</string>
+    <string name="description">Please enter the name item</string>
     <string name="image">image</string>
     <string name="replace_base_64_string">data:image/png;base64,</string>
     <string name="error">Error</string>
@@ -19,7 +19,7 @@
     <string name="You_cant_be_registered">You can\'t be registered</string>
     <string name="Login">Login</string>
     <string name="lost_items">Lost Items</string>
-    <string name="Welcome">Welcome</string>
+    <string name="Welcome">Welcome to FindMe</string>
     <string name="Register">Register</string>
     <string name="share_a_lost_item">Share a lost item</string>
     <string name="Picture">Picture</string>
@@ -28,4 +28,6 @@
     <string name="create_an_account">Create an account</string>
     <string name="create">Create</string>
     <string name="app_name">FindMe</string>
+    <string name="item_Name">item name</string>
+    <string name="object_losted_in">Object losted in :</string>
 </resources>

@@ -13,7 +13,7 @@
 
         <activity android:name=".LostObjectsActivity" />
         <activity android:name=".NewObjectActivity" />
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".StudentsActivity" />
         <activity
             android:name=".RegisterActivity"
             android:parentActivityName=".MainActivity" />

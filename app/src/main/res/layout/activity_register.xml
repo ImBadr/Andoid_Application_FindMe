@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/colorPrimary"
     tools:context=".RegisterActivity">
 
     <LinearLayout
@@ -51,7 +51,6 @@
             android:layout_marginTop="25dp"
             android:background="@color/colorPrimaryDark"
             android:text="@string/create"
-            android:backgroundTint="@color/colorAccent"
             android:textColor="#fff" />
 
     </LinearLayout>
