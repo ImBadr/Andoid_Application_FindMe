@@ -9,20 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:screenOrientation="locked"
+
         tools:ignore="AllowBackup">
-        <activity android:name=".LostObjectsActivity" />
-        <activity android:name=".NewObjectActivity" />
-        <activity android:name=".StudentsActivity" />
-        <activity
-            android:name=".RegisterActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".LoginActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".LostObjectsActivity" android:screenOrientation="locked" />
+        <activity android:name=".NewObjectActivity" android:screenOrientation="locked"/>
+        <activity android:name=".StudentsActivity" android:screenOrientation="locked"/>
+        <activity android:name=".RegisterActivity" android:parentActivityName=".MainActivity" android:screenOrientation="locked"/>
+        <activity android:name=".LoginActivity" android:parentActivityName=".MainActivity" android:screenOrientation="locked"/>
+        <activity android:name=".MainActivity" android:screenOrientation="locked">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
