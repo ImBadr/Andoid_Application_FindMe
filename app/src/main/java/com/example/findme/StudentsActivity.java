@@ -3,6 +3,7 @@ package com.example.findme;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,6 +25,7 @@ import static com.example.findme.R.string.Path_Objects;
 public class StudentsActivity extends AppCompatActivity {
 
     Button logoutButton;
+    Button addItemButton;
 
     DatabaseReference reference;
     LinearLayout linearLayout;
@@ -98,16 +101,25 @@ public class StudentsActivity extends AppCompatActivity {
         });
 
 
-        //logoutButton = findViewById(R.id.logoutButton);
+        logoutButton = findViewById(R.id.Logout);
 
         /* Déconnecté l'utilisateur actuellement authentifié
          */
-       /* logoutButton.setOnClickListener(new View.OnClickListener() {
+       logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(StudentsActivity.this, MainActivity.class));
             }
-        }); */
+        });
+
+        addItemButton = findViewById(R.id.AddItemButton);
+
+        addItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(StudentsActivity.this, NewObjectActivity.class));
+            }
+        });
     }
 }

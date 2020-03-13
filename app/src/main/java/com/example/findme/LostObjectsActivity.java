@@ -3,17 +3,20 @@ package com.example.findme;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +34,9 @@ public class LostObjectsActivity extends AppCompatActivity {
     DatabaseReference reference;
     LinearLayout linearLayout;
     LayoutInflater layoutInflater;
+
+    Button addItemButton;
+    Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +109,28 @@ public class LostObjectsActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(LostObjectsActivity.this, getString(string.error), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        logoutButton = findViewById(R.id.Logout);
+
+        /* Déconnecté l'utilisateur actuellement authentifié
+         */
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(LostObjectsActivity.this, MainActivity.class));
+            }
+        });
+
+        addItemButton = findViewById(R.id.AddItemButton);
+
+        addItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LostObjectsActivity.this, NewObjectActivity.class));
             }
         });
     }

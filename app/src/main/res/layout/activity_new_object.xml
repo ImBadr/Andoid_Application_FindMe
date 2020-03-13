@@ -11,11 +11,10 @@
         android:orientation="vertical"
         android:background="@color/colorClear" >
 
-
-            <LinearLayout
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="77"
+                android:layout_weight="90"
                 android:orientation="vertical">
 
                 <TextView
@@ -125,6 +124,37 @@
                     android:textColor="#fff" />
 
             </LinearLayout>
+
+        <LinearLayout
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_weight="10"
+            android:orientation="horizontal"
+            android:background="@color/colorPrimaryDark">
+
+            <Button
+                android:id="@+id/ShowItemButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:text="@string/show_items"
+                android:textColor="@color/colorPrimary"
+                android:drawableTop="@mipmap/ic_launcher_eye"
+                android:textSize="15sp"
+                android:background="@color/colorPrimaryDark" />
+            <Button
+                android:id="@+id/Logout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:text="@string/Logout"
+                android:textColor="@color/colorPrimary"
+                android:drawableTop="@mipmap/ic_launcher_arrow"
+                android:textSize="15sp"
+                android:background="@color/colorPrimaryDark"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

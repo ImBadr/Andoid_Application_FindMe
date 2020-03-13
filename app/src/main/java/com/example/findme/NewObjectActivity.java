@@ -23,6 +23,8 @@ import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -37,7 +39,7 @@ public class NewObjectActivity extends AppCompatActivity {
 
     DatabaseReference reference;
 
-    Button ButtonHour, dateButton, takePictureButton, shareButton;
+    Button ButtonHour, dateButton, takePictureButton, shareButton, logoutButton, showItemButton;
     MaterialEditText room;
     TextView date, hour, description;
     ImageView image;
@@ -63,7 +65,7 @@ public class NewObjectActivity extends AppCompatActivity {
         hour = findViewById(R.id.Hour);
         image = findViewById(R.id.ImageTaked);
         description = findViewById(R.id.Description);
-        
+
         date.setText(Calendar.getInstance().get(Calendar.YEAR) + "/" + Calendar.getInstance().get(Calendar.MONTH) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
 
 
@@ -128,6 +130,33 @@ public class NewObjectActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        logoutButton = findViewById(R.id.Logout);
+
+        /* Déconnecté l'utilisateur actuellement authentifié
+         */
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(NewObjectActivity.this, MainActivity.class));
+            }
+        });
+
+        showItemButton = findViewById(R.id.ShowItemButton);
+
+        showItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (firebaseUser != null && Objects.equals(firebaseUser.getEmail(), "parisdescartes@parisdescartes.fr")){
+                    startActivity(new Intent(NewObjectActivity.this, LostObjectsActivity.class));
+                } else {
+                    startActivity(new Intent(NewObjectActivity.this, StudentsActivity.class));
+                }
+            }
+        });
     }
 
     /**
@@ -177,9 +206,13 @@ public class NewObjectActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    startActivity(new Intent(NewObjectActivity.this, LostObjectsActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
-                    );
+                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                    if (firebaseUser != null && Objects.equals(firebaseUser.getEmail(), "parisdescartes@parisdescartes.fr")){
+                        startActivity(new Intent(NewObjectActivity.this, LostObjectsActivity.class)
+                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                    } else {
+                        startActivity(new Intent(NewObjectActivity.this, StudentsActivity.class));
+                    }
                     finish();
                 } else {
                     Toast.makeText(NewObjectActivity.this, getString(R.string.data_sending_error), Toast.LENGTH_SHORT).show();

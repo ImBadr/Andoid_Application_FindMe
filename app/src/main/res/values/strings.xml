@@ -31,4 +31,6 @@
     <string name="item_Name">item name</string>
     <string name="object_losted_in">Object losted in :</string>
     <string name="logout">logout</string>
+    <string name="add_an_Item">Add an Item</string>
+    <string name="show_items">Show Items</string>
 </resources>
